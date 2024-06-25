@@ -6,6 +6,8 @@
     --c3: #5a5a5a;
     --c4: #fafafa79;
     --c5: #875eaf;
+    --c6: #fff;
+    --c7: #6a6a6a;
     
     --_g: var(--c1) 90deg,#0000 90.5deg;
 }
@@ -37,4 +39,5 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
 }

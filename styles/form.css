@@ -1,0 +1,38 @@
+
+.container__form{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.form__date{
+    display: flex;
+    gap: .5rem;
+}
+
+.form__input{
+    width: 90%;
+    padding: .5rem;
+    color: var(--c3);
+}
+
+.form__button{
+    width: min-content;
+    padding: .5rem .5rem .2rem .5rem;
+    border-radius: .1rem;
+    border: none;    
+
+    background-color: var(--c3);
+    color: var(--c6);
+}
+
+.form__button:hover{
+    background-color: var(--c7);
+    cursor: pointer;
+}
+
+.form__button span{
+    font-size: 1.2rem;
+}
