@@ -1,0 +1,40 @@
+@import url("./reset.css");
+
+:root{
+    --s: 100px;
+    --c1: #fcea9b;
+    --c2: #f8e076;
+    --c3: #5a5a5a;
+    --c4: #fafafa79;
+    
+    --_g: var(--c1) 90deg,#0000 90.5deg;
+}
+
+body{
+    min-height: 100dvh;
+
+    background: conic-gradient(from -45deg,var(--_g)),
+        conic-gradient(from 135deg,var(--_g)) calc(var(--s)/2) 0,
+        var(--c2);
+    background-size: var(--s) var(--s);
+    color: var(--c3);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: sans-serif;    
+}
+
+.container{
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+
+    background-color: var(--c4);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
