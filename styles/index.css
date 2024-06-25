@@ -1,4 +1,3 @@
-@import url("./reset.css");
 
 :root{
     --s: 100px;
@@ -6,6 +5,7 @@
     --c2: #f8e076;
     --c3: #5a5a5a;
     --c4: #fafafa79;
+    --c5: #875eaf;
     
     --_g: var(--c1) 90deg,#0000 90.5deg;
 }
