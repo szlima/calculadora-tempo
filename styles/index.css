@@ -8,6 +8,7 @@
     --c5: #875eaf;
     --c6: #fff;
     --c7: #6a6a6a;
+    --c8: #fa3c23;
     
     --_g: var(--c1) 90deg,#0000 90.5deg;
 }
@@ -40,4 +41,8 @@ body{
     justify-content: center;
     align-items: center;
     gap: 2rem;
+}
+
+.hide{
+    visibility: hidden;
 }

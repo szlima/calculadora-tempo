@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./styles/result.css"/>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <script src="./scripts/index.js" defer></script>
 </head>
 </head>
 <body>
@@ -25,12 +27,13 @@
             <label for="form__input">Informe a data desejada</label>
             <div class="form__date">
                 <input type="date" id="form__input" class="form__input"/>
-                <button class="form__button">
+                <button id="form__button" class="form__button">
                     <span class="material-symbols-outlined">
                         search
                     </span>
                 </button>
             </div>
+            <p id="form__alert" class="form__alert hide">É necessário informar uma data a partir de 01/01/1970.</p>
         </div>
 
         <div class="container__result">
