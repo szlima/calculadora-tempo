@@ -43,6 +43,10 @@ body{
     gap: 2rem;
 }
 
-.hide{
+.invisible{
     visibility: hidden;
+}
+
+.hide{
+    display: none;
 }
