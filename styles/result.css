@@ -1,7 +1,7 @@
 
 .container__result{
     width: 100%;
-    border-radius: .1rem;
+    border-radius: .5rem;
     padding: 3rem;
 
     background-color: var(--c5);
@@ -15,4 +15,24 @@
     gap: .5rem;
 
     text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
+.result__time{
+    margin: .5rem 0;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.time__unit{
+    padding: 1rem;
+    border-radius: .5rem;
+
+    background-color: var(--c1);
+    color: var(--c3);
 }

@@ -7,6 +7,10 @@ const alertForm= document.querySelector('#form__alert');
 const containerResult= document.querySelector('#container__result');
 const textResult= document.querySelector('#result__text');
 
+const YEAR= 'years';
+const MONTH= 'months';
+const DAY= 'days';
+
 // ----------- -----------
 
 window.onload= () => clearDateForm();
@@ -71,8 +75,57 @@ function showAlert(){
 }
 
 function showResultFuture(today, chosenDate){
-    const {years, months, days}= getDifferenceDates(today, chosenDate);
-    console.log({years, months, days});
+    const differenceResult= getDifferenceDates(today, chosenDate);
+
+    const getMeasurementText= (time, unit) => {
+        const measurementUnits= {
+            'years': {
+                singular: 'ano',
+                plural: 'anos'
+            },
+            'months': {
+                singular: 'mês',
+                plural: 'meses'
+            },
+            'days': {
+                singular: 'dia',
+                plural: 'dias'
+            }
+        };
+
+        return (time < 1) ? '' :
+            (time > 1) ? `${time} ${measurementUnits[unit].plural}` :
+                `${time} ${measurementUnits[unit].singular}`;
+    };
+
+    const getMeasurementElement= (time, unit) => {
+        const span= document.createElement('span');
+        span.innerText= getMeasurementText(time, unit);
+        span.classList.add('time__unit');
+        return span;
+    }
+
+    if(differenceResult.years === 0 && differenceResult.months === 0 && differenceResult.days === 1)
+        textResult.innerText= `Amanhã é ${chosenDate.toLocaleDateString()}!`;
+    else{
+        const div1= document.createElement('div');
+        const div2= document.createElement('div');
+        const div3= document.createElement('div');
+
+        div1.innerText= 'O tempo que falta';
+        div2.innerText= `para ${chosenDate.toLocaleDateString()} é de`;
+
+        for(unit in differenceResult)
+            if(differenceResult[unit] > 0)
+                div3.appendChild(getMeasurementElement(differenceResult[unit], unit));
+
+        div3.classList.add('result__time');
+        textResult.innerText= '';
+
+        textResult.appendChild(div1);
+        textResult.appendChild(div2);
+        textResult.appendChild(div3);
+    }
 }
 
 function showResultPast(){
@@ -102,7 +155,7 @@ function getTodayDate(){
     return getChosenDate(`${year}-${month}-${day}`);
 }
 
-const getSizeMonth= (month, year) => {
+function getSizeMonth(month, year) {
     switch(month){
         case 1:
         case 3:
