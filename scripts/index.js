@@ -25,7 +25,6 @@ buttonForm.onclick= () => calculateTime();
 // ----------- -----------
 
 function calculateTime(){
-
     const today= getTodayDate();
     const chosenDate= getChosenDate(dateForm.value);
 
@@ -197,7 +196,8 @@ function getDifferenceDates(date1, date2){
         days= day2 - day1;
     else{
         const previousMonth2= (month2 === 1) ? 12 : (month2-1);
-        days= (getSizeMonth(previousMonth2,year2)-day1) + day2;
+        const accumulatedDays= getSizeMonth(previousMonth2,year2) - day1;
+        days= ((accumulatedDays >= 0) ? accumulatedDays : 0 ) + day2;
 
         if(months === 0){
             months= 11;
