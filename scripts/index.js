@@ -7,9 +7,24 @@ const alertForm= document.querySelector('#form__alert');
 const containerResult= document.querySelector('#container__result');
 const textResult= document.querySelector('#result__text');
 
+// ----------- -----------
+
 const YEAR= 'years';
 const MONTH= 'months';
 const DAY= 'days';
+const FUTURE= 'future';
+const PAST= 'past';
+
+const MSGS= {
+    'future': {
+        msgNearDay: 'Amanhã é',
+        msgDefaultDays: ['O tempo que falta', 'para']
+    },
+    'past': {
+        msgNearDay: 'Ontem foi',
+        msgDefaultDays: ['O tempo que passou', 'desde']
+    }
+};
 
 // ----------- -----------
 
@@ -34,7 +49,7 @@ function calculateTime(){
         if(difference > 0)
             showResultFuture(today, chosenDate);
         else if(difference < 0)
-            showResultPast();
+            showResultPast(today, chosenDate);
         else
             showResultToday(chosenDate);
 
@@ -73,50 +88,25 @@ function showAlert(){
     }, 4000);    
 }
 
-function showResultFuture(today, chosenDate){
-    const differenceResult= getDifferenceDates(today, chosenDate);
+function showResultToday(chosenDate){
+    textResult.innerText= `${chosenDate.toLocaleDateString()} é a data de hoje!`;
+}
 
-    const getMeasurementText= (time, unit) => {
-        const measurementUnits= {
-            'years': {
-                singular: 'ano',
-                plural: 'anos'
-            },
-            'months': {
-                singular: 'mês',
-                plural: 'meses'
-            },
-            'days': {
-                singular: 'dia',
-                plural: 'dias'
-            }
-        };
+function showResultDifferentDate(difference, chosenDate, time){
 
-        return (time < 1) ? '' :
-            (time > 1) ? `${time} ${measurementUnits[unit].plural}` :
-                `${time} ${measurementUnits[unit].singular}`;
-    };
-
-    const getMeasurementElement= (time, unit) => {
-        const span= document.createElement('span');
-        span.innerText= getMeasurementText(time, unit);
-        span.classList.add('time__unit');
-        return span;
-    }
-
-    if(differenceResult.years === 0 && differenceResult.months === 0 && differenceResult.days === 1)
-        textResult.innerText= `Amanhã é ${chosenDate.toLocaleDateString()}!`;
+    if(difference.years === 0 && difference.months === 0 && difference.days === 1)
+        textResult.innerText= `${MSGS[time].msgNearDay} ${chosenDate.toLocaleDateString()}!`;
     else{
         const div1= document.createElement('div');
         const div2= document.createElement('div');
         const div3= document.createElement('div');
 
-        div1.innerText= 'O tempo que falta';
-        div2.innerText= `para ${chosenDate.toLocaleDateString()} é de`;
+        div1.innerText= MSGS[time].msgDefaultDays[0];
+        div2.innerText= `${MSGS[time].msgDefaultDays[1]} ${chosenDate.toLocaleDateString()} é de`;
 
-        for(unit in differenceResult)
-            if(differenceResult[unit] > 0)
-                div3.appendChild(getMeasurementElement(differenceResult[unit], unit));
+        for(unit in difference)
+            if(difference[unit] > 0)
+                div3.appendChild(getMeasurementElement(difference[unit], unit));
 
         div3.classList.add('result__time');
         textResult.innerText= '';
@@ -127,12 +117,14 @@ function showResultFuture(today, chosenDate){
     }
 }
 
-function showResultPast(){
-    console.log('Past');
+function showResultFuture(today, chosenDate){
+    const differenceResult= getDifferenceDates(today, chosenDate);
+    showResultDifferentDate(differenceResult, chosenDate, FUTURE);
 }
 
-function showResultToday(chosenDate){
-    textResult.innerText= `${chosenDate.toLocaleDateString()} é a data de hoje!`;
+function showResultPast(today, chosenDate){
+    const differenceResult= getDifferenceDates(chosenDate, today);
+    showResultDifferentDate(differenceResult, chosenDate, PAST);
 }
 
 function getChosenDate(date){
@@ -207,4 +199,33 @@ function getDifferenceDates(date1, date2){
     }
 
     return {years, months, days};
+}
+
+function getMeasurementElement(time, unit){
+    const span= document.createElement('span');
+
+    const getMeasurementText= () => {
+        const measurementUnits= {
+            'years': {
+                singular: 'ano',
+                plural: 'anos'
+            },
+            'months': {
+                singular: 'mês',
+                plural: 'meses'
+            },
+            'days': {
+                singular: 'dia',
+                plural: 'dias'
+            }
+        };
+
+        return (time > 1) ? `${time} ${measurementUnits[unit].plural}` :
+            `${time} ${measurementUnits[unit].singular}`;
+    };
+
+    span.innerText= getMeasurementText();
+    span.classList.add('time__unit');
+
+    return span;
 }
